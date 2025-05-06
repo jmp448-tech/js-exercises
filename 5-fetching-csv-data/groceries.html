@@ -84,13 +84,57 @@
             console.log("PART 1...")
 
 
+            // A) Display total number of products
+console.log("Total products:", products.length);
 
+// B) Display name and formatted price
+products.forEach(product => {
+    const price = parseFloat(product.price);
+    console.log(`${product.name}: ${formatUSD(price)}`);
+});
+
+// C) Get unique departments
+const departments = [];
+products.forEach(product => {
+    if (!departments.includes(product.department)) {
+        departments.push(product.department);
+    }
+});
+console.log("Unique departments:", departments);
+
+// D) Display number of departments
+console.log("Number of unique departments:", departments.length);
+
+// E) Display department names in ALL CAPS
+departments.forEach(dept => {
+    console.log(dept.toUpperCase());
+});
+
+// F) Filter for "beverages" department
+const beverages = products.filter(product => product.department.toLowerCase() === "beverages");
+console.log("Number of beverage products:", beverages.length);
+
+// G) Average beverage price
+const beveragePrices = beverages.map(p => parseFloat(p.price));
+const averageBeveragePrice = d3.mean(beveragePrices);
+console.log("Average beverage price:", formatUSD(averageBeveragePrice));
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            // A) Sort products by name (ascending)
+products.sort((a, b) => d3.ascending(a.name, b.name));
+
+// B) Display each product in the <ul>
+const list = document.getElementById("display-groceries");
+products.forEach(product => {
+    const li = document.createElement("li");
+    const price = parseFloat(product.price);
+    li.textContent = `${product.name}: ${formatUSD(price)}`;
+    list.appendChild(li);
+});
 
 
 
