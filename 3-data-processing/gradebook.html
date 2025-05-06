@@ -64,17 +64,67 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+                // these are equivalent:
+                console.log("A)")
+        console.log(gradebook.downloadDate)
+        console.log(gradebook["downloadDate"])
 
+        console.log("B)")
+        console.log(gradebook.students.length)
 
+        console.log("C)")
+
+        //gradebook.students.forEach(function(item){
+        //    console.log("---")
+        //    console.log(item)
+        //})
+
+        //gradebook.students.forEach(function(student){
+        //    console.log("---")
+        //    console.log(student)
+        //})
+
+        gradebook.students.forEach(function(student){
+            console.log(student.name, student.finalGrade)
+        })
+        
+
+console.log("D)")
+
+//var grades = [83, 85, 90, 98, 100]
+var grades = gradebook.students.map(function(student){
+    return student.finalGrade
+})
+console.log("GRADES:", grades)
+
+console.log("E)")
+console.log("MEAN:", d3.mean(grades))
+
+console.log("F)")
+console.log("MEDIAN:", d3.median(grades))
 
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        const table = document.getElementById("display-gradebook");
 
+// Create header row
+const headerRow = table.insertRow();
+["Student ID", "Student Name", "Final Grade"].forEach(text => {
+    const th = document.createElement("th");
+    th.textContent = text;
+    headerRow.appendChild(th);
+});
 
-
+// Add rows for each student
+gradebook.students.forEach(student => {
+    const row = table.insertRow();
+    row.insertCell().textContent = student.studentId;
+    row.insertCell().textContent = student.name;
+    row.insertCell().textContent = student.finalGrade;
+});
 
 
     </script>
