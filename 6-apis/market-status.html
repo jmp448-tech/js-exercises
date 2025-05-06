@@ -93,14 +93,57 @@
             console.log("PART 1...")
 
 
+            // A) Total markets
+    console.log("MARKETS:", data.markets.length);
 
+// B) Filter for equity markets
+var equityMarkets = data.markets.filter(market => market.market_type === "Equity");
+console.log("EQUITY MARKETS:", equityMarkets.length);
 
+// C) Log market type and region for each equity market
+equityMarkets.forEach(market => {
+  console.log("...", `${market.region} (${market.market_type})`);
+});
 
+// D) Find U.S. equity market
+var market = equityMarkets.find(market => market.region === "United States");
+
+if (market) {
+  console.log("US MARKET TYPE:", market.market_type);
+  console.log("EXCHANGES:", market.primary_exchanges);
+  console.log("OPEN:", market.local_open);
+  console.log("CLOSE:", market.local_close);
+  console.log("STATUS:", market.current_status.toUpperCase());
+} else {
+  console.warn("No U.S. equity market found.");
+}
             console.log("---------------------")
             console.log("PART 2...")
 
+            // E) Select page elements
+    var displayRegion = document.getElementById("display-region");
+    var displayType = document.getElementById("display-type");
+    var displayExchanges = document.getElementById("display-exchanges");
+    var displayOpen = document.getElementById("display-open");
+    var displayClose = document.getElementById("display-close");
+    var displayStatus = document.getElementById("display-status");
 
-
+    // F) Populate page with U.S. market info
+    if (market) {
+      displayRegion.innerText = market.region;
+      displayType.innerText = market.market_type;
+      displayExchanges.innerText = market.primary_exchanges;
+      displayOpen.innerText = market.local_open;
+      displayClose.innerText = market.local_close;
+      displayStatus.innerText = market.current_status.toUpperCase();
+    } else {
+      displayRegion.innerText = "N/A";
+      displayType.innerText = "-";
+      displayExchanges.innerText = "-";
+      displayOpen.innerText = "-";
+      displayClose.innerText = "-";
+      displayStatus.innerText = "-";
+    }
 
         }).catch(function(error) {
             console.error("ERROR:", error)
