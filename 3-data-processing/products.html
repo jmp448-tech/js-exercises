@@ -63,6 +63,21 @@
         console.log("PART 1...")
 
 
+        // A) Total number of products
+console.log("A) Total Products:", products.length);
+
+// B) Name and price of each product
+console.log("B) Product List:");
+products.forEach(product => {
+    console.log(`${product.name}: $${product.price.toFixed(2)}`);
+});
+
+// C) Filter products under $50
+const matchingProducts = products.filter(product => product.price < 50);
+console.log("C) Matching Products:", matchingProducts);
+
+// D) Total number of matching products
+console.log("D) Number of Matching Products:", matchingProducts.length);
 
 
 
@@ -70,7 +85,40 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+        const container = document.getElementById("display-products");
 
+products.forEach(product => {
+    const productDiv = document.createElement("div");
+
+    // Name
+    const nameP = document.createElement("p");
+    nameP.textContent = `Name: ${product.name}`;
+    productDiv.appendChild(nameP);
+
+    // Description
+    const descP = document.createElement("p");
+    descP.textContent = `Description: ${product.description}`;
+    productDiv.appendChild(descP);
+
+    // Price
+    const priceP = document.createElement("p");
+    priceP.textContent = `Price: $${product.price.toFixed(2)}`;
+    productDiv.appendChild(priceP);
+
+    // Image
+    const img = document.createElement("img");
+    img.src = product.imageURL;
+    img.alt = product.name;
+    img.style.maxWidth = "360px"; // optional
+    productDiv.appendChild(img);
+
+    // Horizontal line
+    const hr = document.createElement("hr");
+    productDiv.appendChild(hr);
+
+    // Append to container
+    container.appendChild(productDiv);
+});
 
 
     </script>
