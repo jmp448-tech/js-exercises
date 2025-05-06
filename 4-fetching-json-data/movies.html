@@ -86,15 +86,77 @@
                 console.log("---------------------")
                 console.log("PART 1...")
 
+                console.log(data.length)
 
+                data.forEach(function(movie) {
+                    //console.log("---")
+                    //console.log(movie)
+                    console.log(movie.Title, movie.Year)
+                })
 
+                // sort the movies by rating in descending order
+                // so the movie with the highest rating is first
+                // then we can grab the first item from the sorted array
+                // and that will be the one with the highest rating
+                var sortedMovies = data.sort(function(a, b) {
+                    return d3.descending(a.Rating, b.Rating)
+                })
 
+                var highestRated = sortedMovies[0]
+                console.log("HIGHEST RATED:", highestRated.Title, highestRated.Rating)
 
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
+                const selector = document.getElementById("select-movie");
+const titleSpan = document.getElementById("display-title");
+const yearSpan = document.getElementById("display-year");
+const ratingSpan = document.getElementById("display-rating");
+const imageContainer = document.getElementById("image-container");
 
+// Add real movie options to dropdown
+data.forEach(function(movie, index) {
+    const option = document.createElement("option");
+    option.value = index; // use array index as value
+    option.textContent = movie.Title;
+    selector.appendChild(option);
+});
+
+// Define update function
+function updateMovieInfo() {
+    const selectedIndex = selector.value;
+
+    // Don't update if default option is selected
+    if (selectedIndex === "N/A") {
+        titleSpan.textContent = "TODO";
+        yearSpan.textContent = "TODO";
+        ratingSpan.textContent = "X";
+        imageContainer.innerHTML = "";
+        return;
+    }
+
+    const selectedMovie = data[selectedIndex];
+
+    titleSpan.textContent = selectedMovie.Title;
+    yearSpan.textContent = selectedMovie.Year;
+    ratingSpan.textContent = selectedMovie.Rating;
+
+    // Display poster
+    imageContainer.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = selectedMovie.Poster;
+    img.alt = "Poster for " + selectedMovie.Title;
+    img.style.maxWidth = "200px";
+    imageContainer.appendChild(img);
+}
+
+// Hook up change event
+selector.addEventListener("change", updateMovieInfo);
+
+// Optionally, auto-select the first movie
+selector.selectedIndex = 1; // first real movie
+updateMovieInfo();
 
 
 
