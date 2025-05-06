@@ -86,6 +86,13 @@
             sessionStorage.setItem("ALPHAVANTAGE_API_KEY", apiKey)
         }
 
+        // ELEMENT REFERENCES
+        var inputSymbol = document.getElementById("input-symbol")
+        var lookupButton = document.getElementById("lookup")
+
+        var displayName = document.getElementById("display-name")
+        var displayDesc = document.getElementById("display-description")
+        var displayLink = document.getElementById("display-link")
 
 
         // FUNCTION DEFINITION
@@ -100,16 +107,21 @@
                 console.log("---------------------")
                 console.log("PART 1...")
 
-
-
-
-
+                console.log(data.Symbol)
+                console.log(data.Name)
+                console.log(data.OfficialSite)
+                console.log(data.Description)
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
 
+                document.getElementById("display-name").innerText = data.Name || "N/A";
+                 document.getElementById("display-description").innerText = data.Description || "N/A";
 
+                var displayLink = document.getElementById("display-link");
+                displayLink.href = data.Website || "#";
+                displayLink.innerText = data.Website || "N/A";
 
 
             }).catch(function(error) {
@@ -119,9 +131,9 @@
 
         // FUNCTION INVOCATIONS
         // invoke function when the page loads:
-        //lookupCompany()
+        lookupCompany()
         // invoke function when button is clicked:
-        //lookupButton.addEventListener("click", lookupCompany, false)
+        lookupButton.addEventListener("click", lookupCompany, false)
 
     </script>
 </body>
